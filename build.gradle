@@ -1,0 +1,59 @@
+plugins {
+    id 'java-library'
+    id 'java'
+    id 'maven-publish'
+    id "com.github.hierynomus.license" version "0.15.0"
+}
+
+ext['pactVersion'] = '4.0.6'
+ext['wireMockVersion'] = '2.25.1'
+
+dependencies {
+    api "com.github.tomakehurst:wiremock-jre8:${wireMockVersion}"
+    api "au.com.dius:pact-jvm-provider:${pactVersion}"
+    api "au.com.dius:pact-jvm-core-model:${pactVersion}"
+
+    testImplementation "au.com.dius:pact-jvm-consumer:${pactVersion}"
+    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.10"
+    testImplementation 'junit:junit:4.12'
+}
+
+repositories {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    withJavadocJar()
+    withSourcesJar()
+}
+
+wrapper {
+    gradleVersion = '6.1'
+}
+
+license {
+    header = file('HEADER')
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'EOS Technology Solutions GmbH'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username repoUsername
+                password repoPassword
+            }
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
+}
