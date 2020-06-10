@@ -1,4 +1,4 @@
-# PactStubs
+# PactStubs ![Maven Central](https://img.shields.io/maven-central/v/de.eosts/pact-stubs?style=plastic) ![GitHub](https://img.shields.io/github/license/EOS-TS/pact-stubs?style=plastic) 
  
  This project aims to create configurable WireMock Stubs (http://wiremock.org/) and JSON messages from Pacts (https://docs.pact.io/) for leaner integration testing:
  * Fully support all regex based rules in Pact, i.e. allow regex based url path
@@ -6,8 +6,6 @@
     *  *currently only json payloads are supported  
  * Allow for *pact verified* concrete request pattern (wiremock only), i.e. for parallel test execution, for otherwise regex based pact rules of url path, query params and request body
     + +currently only json payloads are supported
-
- In addition, this library provides `String` messages from MessagePacts ().
  
  
  ## Getting Started
