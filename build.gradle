@@ -2,11 +2,13 @@ plugins {
     id 'java-library'
     id 'java'
     id 'maven-publish'
+    id 'signing'
     id "com.github.hierynomus.license" version "0.15.0"
 }
 
 group = 'de.eosts'
 version = '1.0.0-SNAPSHOT'
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 ext['pactVersion'] = '4.0.6'
 ext['wireMockVersion'] = '2.25.1'
@@ -35,7 +37,7 @@ java {
 }
 
 wrapper {
-    gradleVersion = '6.1'
+    gradleVersion = '6.2'
 }
 
 license {
@@ -44,10 +46,32 @@ license {
     ext.name = 'EOS Technology Solutions GmbH'
 }
 
+//tasks.withType(Sign) {
+//    onlyIf { isReleaseVersion }
+//}
+
 publishing {
     publications {
-        maven(MavenPublication) {
+        mavenJava(MavenPublication) {
+            artifactId = 'pact-stubs'
             from components.java
+            pom {
+                name = 'Pact Stubs'
+                description = 'Generate Stubs from Pacts for WireMock and Messaging'
+                url = 'https://github.com/EOS-TS/pact-stubs'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'cmuelhau'
+                        name = 'Christian Muelhaupt'
+                    }
+                }
+            }
         }
     }
     repositories {
@@ -56,7 +80,14 @@ publishing {
                 username repoUsername
                 password repoPassword
             }
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+            url = isReleaseVersion ? releasesRepoUrl : snapshotsRepoUrl
         }
     }
+}
+
+signing {
+    required { isReleaseVersion && gradle.taskGraph.hasTask("publish") }
+    sign publishing.publications.mavenJava
 }
