@@ -3,6 +3,7 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'signing'
+    id "io.codearte.nexus-staging" version "0.21.2"
     id "com.github.hierynomus.license" version "0.15.0"
 }
 
@@ -71,14 +72,19 @@ publishing {
                         name = 'Christian Muelhaupt'
                     }
                 }
+                scm {
+                    connection = 'scm:git:https://github.com/EOS-TS/pact-stubs.git'
+                    developerConnection = 'scm:git:git@github.com:EOS-TS/pact-stubs.git'
+                    url = 'https://github.com/EOS-TS/pact-stubs'
+                }
             }
         }
     }
     repositories {
         maven {
             credentials {
-                username repoUsername
-                password repoPassword
+                username nexusUsername
+                password nexusPassword
             }
             def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
             def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
