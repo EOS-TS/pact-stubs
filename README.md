@@ -12,7 +12,7 @@
  
  ### Prerequisites
  
- [Pact2Wiremock](src/main/java/de/eosts/pactstubs/Pact2Wiremock.java) uses the WireMock Stubbing API to configure a running WireMock instance.
+ [Pact2WireMock](src/main/java/de/eosts/pactstubs/Pact2WireMock.java) uses the WireMock Stubbing API to configure a running WireMock instance.
  PactStubs can load pacts from PactBroker (https://github.com/pact-foundation/pact_broker), from folder or urls. 
  
  ### Dependency
