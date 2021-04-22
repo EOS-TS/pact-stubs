@@ -72,13 +72,17 @@ public class PactMessageConverterTest {
     public void shouldConvertWithJackson() {
         String simpleJson = "{\"key\":\"value\"}";
         Message message = new Message("", Arrays.asList(new ProviderState("")), new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()));
-        Instant now = Instant.now();
+        int epochSecond = 1619079376;
+        int nanoAdjustment = 33154000; //will be serialized by Jackson with left filled zeros, e.g. 1 ns will be "000000001"
+        String nanoAdjustmentPadded = ("000000000" + nanoAdjustment).substring(String.valueOf(nanoAdjustment).length());
+
+        Instant sampleInstant = Instant.ofEpochSecond(epochSecond, nanoAdjustment);
         String response = new PactMessageConverter(
                 new JsonPathWriter(defaultConfiguration()
                         .jsonProvider(new JacksonJsonProvider(new ObjectMapper().registerModule(new JavaTimeModule())))))
-                .convert(message, new JsonPathSetCommand("$.key", now)).getResponse();
+                .convert(message, new JsonPathSetCommand("$.key", sampleInstant)).getResponse();
 
-        Assert.assertEquals("{\"key\":" + now.getEpochSecond() + "." + now.getNano() + "}", response);
+        Assert.assertEquals("{\"key\":" + epochSecond + "." + nanoAdjustmentPadded + "}", response);
     }
 
 }
