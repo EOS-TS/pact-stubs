@@ -26,5 +26,10 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Publish to Sontaype
+      env:
+        ORG_GRADLE_PROJECT_signingKey: ${{ secrets.OSS_SONATYPE_SIGNING_KEY }}
+        ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.OSS_SONATYPE_SIGNING_PASSWORD }}
+        ORG_GRADLE_PROJECT_nexusUsername: ${{ secrets.OSS_SONATYPE_USERNAME }}
+        ORG_GRADLE_PROJECT_nexusPassword: ${{ secrets.OSS_SONATYPE_PASSWORD }}
       if: github.ref == 'refs/heads/master'
-      run: ./gradlew -PnexusUsername="${{ secrets.OSS_SONATYPE_USERNAME }}" -PnexusPassword="${{ secrets.OSS_SONATYPE_PASSWORD }}" publish
+      run: ./gradlew publish
