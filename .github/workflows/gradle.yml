@@ -25,3 +25,6 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Publish to Sontaype
+      if: github.ref == 'refs/heads/master'
+      run: ./gradlew -PnexusUsername={{ secrets.OSS_SONATYPE_USERNAME }} -PnexusPassword={{ secrets.OSS_SONATYPE_PASSWORD }} publish
