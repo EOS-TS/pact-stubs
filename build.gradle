@@ -45,6 +45,7 @@ license {
     header = file('HEADER')
     ext.year = Calendar.getInstance().get(Calendar.YEAR)
     ext.name = 'EOS Technology Solutions GmbH'
+    skipExistingHeaders = true
 }
 
 //tasks.withType(Sign) {
