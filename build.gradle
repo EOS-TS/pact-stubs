@@ -8,10 +8,10 @@ plugins {
 }
 
 group = 'de.eosts'
-version = '1.1.0'
+version = '1.1.1-SNAPSHOT'
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
-ext['pactVersion'] = '4.0.6'
+ext['pactVersion'] = '4.0.10'
 ext['wireMockVersion'] = '2.27.2'
 
 dependencies {
