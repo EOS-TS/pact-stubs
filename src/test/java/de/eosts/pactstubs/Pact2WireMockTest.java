@@ -1,18 +1,17 @@
 /**
- *
- *    Copyright 2020 EOS Technology Solutions GmbH
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2020 EOS Technology Solutions GmbH
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package de.eosts.pactstubs;
 
@@ -94,7 +93,7 @@ public class Pact2WireMockTest {
                                 .uuid("uuid")
                                 .booleanType("boolean")
                                 .time("time")
-                                .timestamp("timestamp")
+                                .datetime("datetime")
                                 .array("array").stringType("arrayString").closeArray()
                                 .object("object").stringType("object.string").object("level2").stringType("level2.object.string").closeObject().closeObject()
                                 .eachArrayLike("arrayOfArrays").stringType("arrayOfArraysString").closeArray().closeArray().asBody()
@@ -118,7 +117,7 @@ public class Pact2WireMockTest {
                 + "  \"uuid\": \"52667026-1993-4b5b-924f-0ade3120d28c\",\n"
                 + "  \"boolean\": true,\n"
                 + "  \"time\": \"T14:00:00\",\n"
-                + "  \"timestamp\": \"2019-01-01T14:00:00\",\n"
+                + "  \"datetime\": \"2019-01-01T14:00:00\",\n"
                 + "  \"array\": [\n"
                 + "    \"arrayString\"\n"
                 + "  ],\n"

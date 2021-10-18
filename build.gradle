@@ -8,20 +8,22 @@ plugins {
 }
 
 group = 'de.eosts'
-version = '1.1.2-SNAPSHOT'
+version = '2.0.0-SNAPSHOT'
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
-ext['pactVersion'] = '4.0.10'
-ext['wireMockVersion'] = '2.27.2'
+ext {
+    pactVersion = '4.1.28'
+    wireMockVersion = '2.31.0'
+}
 
 dependencies {
     api "com.github.tomakehurst:wiremock-jre8:${wireMockVersion}"
-    api "au.com.dius:pact-jvm-provider:${pactVersion}"
-    api "au.com.dius:pact-jvm-core-model:${pactVersion}"
+    api "au.com.dius.pact:provider:${pactVersion}"
+    api "au.com.dius.pact.core:model:${pactVersion}"
 
-    testImplementation "au.com.dius:pact-jvm-consumer:${pactVersion}"
-    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.4"
-    testImplementation 'junit:junit:4.12'
+    testImplementation "au.com.dius.pact:consumer:${pactVersion}"
+    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0"
+    testImplementation 'junit:junit:4.13.2'
 }
 
 repositories {

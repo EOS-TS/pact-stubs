@@ -49,7 +49,7 @@ public class PactResponseConverterTest {
         String simpleJson = "{\"key\":\"value\"}";
         Response response = new Response(200, new HashMap<>(), new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()));
         ResponseComparisonResult<ResponseDefinition> incorrect = new PactResponseConverter().convert(response, new JsonPathSetCommand("$.key", "incorrect"));
-        Assert.assertTrue(incorrect.getComparisonResult().getBodyMismatches().toOption().toList().get(0).getMismatches().containsKey("$.key"));
+        Assert.assertTrue(incorrect.getComparisonResult().getBodyMismatches().component1().getMismatches().containsKey("$.key"));
     }
 
     @Test

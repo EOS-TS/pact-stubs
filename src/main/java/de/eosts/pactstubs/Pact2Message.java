@@ -1,22 +1,22 @@
 /**
- *
- *    Copyright 2020 EOS Technology Solutions GmbH
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2020 EOS Technology Solutions GmbH
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package de.eosts.pactstubs;
 
 import au.com.dius.pact.core.model.messaging.Message;
+import com.github.michaelbull.result.Err;
 import de.eosts.pactstubs.compare.ResponseComparisonResult;
 import de.eosts.pactstubs.exception.MessageNotVerifiedException;
 import de.eosts.pactstubs.jsonpath.JsonPathResponseConverter;
@@ -83,7 +83,8 @@ public class Pact2Message {
      */
     public String message(Message interaction, WriteContextOperator... writeContextOperator) {
         ResponseComparisonResult<String> convertedMessage = pactMessageConverter.convert(interaction, writeContextOperator);
-        if (convertedMessage.getComparisonResult() != null && !convertedMessage.getComparisonResult().getBodyMismatches().toOption().toList().get(0).getMismatches().isEmpty()) {
+        if (convertedMessage.getComparisonResult() != null &&
+                (convertedMessage.getComparisonResult().getBodyMismatches() instanceof Err || !convertedMessage.getComparisonResult().getBodyMismatches().component1().getMismatches().isEmpty())) {
             throw new MessageNotVerifiedException("Differences in \"" + interaction.getDescription() + "\": " + convertedMessage.getComparisonResult(), interaction.getContents(), convertedMessage);
         }
         return convertedMessage.getResponse();

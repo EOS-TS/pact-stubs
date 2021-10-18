@@ -19,7 +19,7 @@ package de.eosts.pactstubs.loader;
 import au.com.dius.pact.core.model.Pact;
 import au.com.dius.pact.core.model.PactSource;
 import au.com.dius.pact.core.model.UnknownPactSource;
-import au.com.dius.pact.provider.junit.loader.PactLoader;
+import au.com.dius.pact.provider.junitsupport.loader.PactLoader;
 
 import java.util.Collections;
 import java.util.List;

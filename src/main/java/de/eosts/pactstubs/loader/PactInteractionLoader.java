@@ -17,7 +17,7 @@
 package de.eosts.pactstubs.loader;
 
 import au.com.dius.pact.core.model.Interaction;
-import au.com.dius.pact.provider.junit.loader.PactLoader;
+import au.com.dius.pact.provider.junitsupport.loader.PactLoader;
 
 import java.io.IOException;
 import java.util.HashMap;

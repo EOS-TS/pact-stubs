@@ -16,22 +16,30 @@
  PactStubs can load pacts from PactBroker (https://github.com/pact-foundation/pact_broker), from folder or urls. 
  
  ### Dependency
+
+Supported Pact-jvm versions:
+
+| pact-stubs version | pact-jvm version |
+| ------------------ | ---------------- |
+| 2.x.x              | 4.1.x            |
+| 1.x.x              | 4.0.x            |
+
  
- Add to your java project as dependency (maven), since there's a dependency to pact-jvm, scala variants 2.11 and 2.12 are supported:
+ Add to your java project as dependency (maven):
  
  ```
  <dependency>
    <groupId>de.eosts</groupId>
    <artifactId>pact-stubs</artifactId>
-   <version>1.0.0</version>
+   <version>2.0.0</version>
  </dependency>
  ```
 
  PactStubs itself requires at least (and will include transitively):
  ```
-     com.github.tomakehurst:wiremock-jre8:2.25.1    
-     au.com.dius:pact-jvm-provider-junit:4.0.4
-     au.com.dius:pact-jvm-consumer-junit:4.0.4
+     com.github.tomakehurst:wiremock-jre8:2.31.0    
+     au.com.dius:pact-jvm-provider-junit:4.1.28
+     au.com.dius:pact-jvm-consumer-junit:4.1.28
  ```
  ### Usage
  
