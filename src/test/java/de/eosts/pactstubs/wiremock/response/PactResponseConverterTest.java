@@ -56,13 +56,13 @@ public class PactResponseConverterTest {
     public void shouldConvertWithJackson() {
         String simpleJson = "{\"key\":\"value\"}";
         Response response = new Response(200, new HashMap<>(), new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()));
-        Instant now = Instant.now();
+        Instant now = Instant.parse("2007-12-03T10:15:30.012345678Z");
         ResponseDefinition convertedResponse = new PactResponseConverter(
                 new JsonPathWriter(defaultConfiguration()
                         .jsonProvider(new JacksonJsonProvider(new ObjectMapper().registerModule(new JavaTimeModule())))))
                 .convert(response, new JsonPathSetCommand("$.key", now)).getResponse();
 
-        Assert.assertEquals("{\"key\":" + now.getEpochSecond() + "." + now.getNano() + "}", convertedResponse.getBody());
+        Assert.assertEquals("{\"key\":1196676930.012345678}", convertedResponse.getBody());
     }
 
 }
