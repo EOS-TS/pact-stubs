@@ -1,4 +1,4 @@
-/**
+/*
  *
  *    Copyright 2020 EOS Technology Solutions GmbH
  *
