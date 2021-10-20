@@ -3,8 +3,8 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'signing'
-    id "io.codearte.nexus-staging" version "0.21.2"
-    id "com.github.hierynomus.license" version "0.15.0"
+    id "io.codearte.nexus-staging" version "0.30.0"
+    id "com.github.hierynomus.license" version "0.16.1"
 }
 
 group = 'de.eosts'
@@ -40,7 +40,7 @@ java {
 }
 
 wrapper {
-    gradleVersion = '6.2'
+    gradleVersion = '7.2'
 }
 
 license {
@@ -48,11 +48,10 @@ license {
     ext.year = Calendar.getInstance().get(Calendar.YEAR)
     ext.name = 'EOS Technology Solutions GmbH'
     skipExistingHeaders = true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
 }
-
-//tasks.withType(Sign) {
-//    onlyIf { isReleaseVersion }
-//}
 
 publishing {
     publications {
