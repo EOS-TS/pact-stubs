@@ -8,11 +8,11 @@ plugins {
 }
 
 group = 'de.eosts'
-version = '2.0.1-SNAPSHOT'
+version = '3.0.0-SNAPSHOT'
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 ext {
-    pactVersion = '4.1.28'
+    pactVersion = '4.2.14'
     wireMockVersion = '2.31.0'
 }
 
@@ -20,6 +20,13 @@ dependencies {
     api "com.github.tomakehurst:wiremock-jre8:${wireMockVersion}"
     api "au.com.dius.pact:provider:${pactVersion}"
     api "au.com.dius.pact.core:model:${pactVersion}"
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31") {
+        because("required to instantiate PactBrokerLoader")
+    }
+    implementation('org.json:json:20160212') {
+        because("relying only on the transitive dependency of au.com.dius.pact:consumer results in cannot access JSONObject")
+    }
 
     testImplementation "au.com.dius.pact:consumer:${pactVersion}"
     testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0"

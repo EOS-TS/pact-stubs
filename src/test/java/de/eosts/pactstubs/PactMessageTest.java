@@ -34,7 +34,7 @@ public class PactMessageTest {
     public void shouldReturnMessageFromPact() {
         String description = "message description";
 
-        MessagePact messagePact = MessagePactBuilder.consumer(CONSUMER).hasPactWith(PROVIDER).expectsToReceive(description)
+        MessagePact messagePact = new MessagePactBuilder().consumer(CONSUMER).hasPactWith(PROVIDER).expectsToReceive(description)
                 .withContent(new PactDslJsonBody().stringValue("key", "value"))
                 .toPact();
 
@@ -46,7 +46,7 @@ public class PactMessageTest {
     public void shouldReturnManipulatedMessageFromPact() {
         String description = "message description";
 
-        MessagePact messagePact = MessagePactBuilder.consumer(CONSUMER).hasPactWith(PROVIDER).expectsToReceive(description)
+        MessagePact messagePact = new MessagePactBuilder().consumer(CONSUMER).hasPactWith(PROVIDER).expectsToReceive(description)
                 .withContent(new PactDslJsonBody().stringType("key", "value"))
                 .toPact();
 
@@ -58,7 +58,7 @@ public class PactMessageTest {
     public void shouldThrowNotVerifiedException() {
         String description = "message description";
 
-        MessagePact messagePact = MessagePactBuilder.consumer(CONSUMER).hasPactWith(PROVIDER).expectsToReceive(description)
+        MessagePact messagePact = new MessagePactBuilder().consumer(CONSUMER).hasPactWith(PROVIDER).expectsToReceive(description)
                 .withContent(new PactDslJsonBody().stringValue("key", "value"))
                 .toPact();
 

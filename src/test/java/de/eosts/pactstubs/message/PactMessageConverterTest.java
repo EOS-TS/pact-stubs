@@ -33,6 +33,7 @@ import org.junit.Test;
 
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.jayway.jsonpath.Configuration.defaultConfiguration;
 
@@ -41,7 +42,7 @@ public class PactMessageConverterTest {
     @Test
     public void shouldEmitMessageExactly() {
         String simpleJson = "{\"key\":\"value\"}";
-        Message message = new Message("", Arrays.asList(new ProviderState("")), new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()));
+        Message message = new Message("", List.of(new ProviderState("")), new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()));
         Assert.assertEquals("{\"key\":\"value\"}", new PactMessageConverter().convert(message).getResponse());
         Assert.assertNull(new PactMessageConverter().convert(message).getComparisonResult());
     }
@@ -49,11 +50,13 @@ public class PactMessageConverterTest {
     @Test
     public void shouldEmitManipulatedButValidMessages() {
         String simpleJson = "{\"key\":\"value\"}";
-        Message message = new Message("", Arrays.asList(new ProviderState("")), new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()));
         MatchingRulesImpl matchingRules = new MatchingRulesImpl();
-
         matchingRules.addCategory("body").addRule("$.key", new RegexMatcher("i.+"));
-        message.setMatchingRules(matchingRules);
+
+        Message message = new Message("", List.of(new ProviderState("")),
+                new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()),
+                matchingRules
+        );
         ResponseComparisonResult<String> comparisonResult = new PactMessageConverter().convert(message, new JsonPathSetCommand("$.key", "incorrect"));
         Assert.assertEquals("{\"key\":\"incorrect\"}", comparisonResult.getResponse());
         Assert.assertTrue(comparisonResult.getComparisonResult().getBodyMismatches().component1().getMismatches().isEmpty());
@@ -62,7 +65,7 @@ public class PactMessageConverterTest {
     @Test
     public void shouldHaveComparisonResultWithNonPactConformConversions() {
         String simpleJson = "{\"key\":\"value\"}";
-        Message message = new Message("", Arrays.asList(new ProviderState("")), new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()));
+        Message message = new Message("", List.of(new ProviderState("")), new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()));
         ResponseComparisonResult<String> incorrect = new PactMessageConverter().convert(message, new JsonPathSetCommand("$.key", "incorrect"));
         Assert.assertTrue(incorrect.getComparisonResult().getBodyMismatches().component1().getMismatches().containsKey("$.key"));
 
@@ -71,7 +74,7 @@ public class PactMessageConverterTest {
     @Test
     public void shouldConvertWithJackson() {
         String simpleJson = "{\"key\":\"value\"}";
-        Message message = new Message("", Arrays.asList(new ProviderState("")), new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()));
+        Message message = new Message("", List.of(new ProviderState("")), new OptionalBody(OptionalBody.State.PRESENT, simpleJson.getBytes(), ContentType.Companion.getJSON()));
         int epochSecond = 1619079376;
         int nanoAdjustment = 33154000; //will be serialized by Jackson with left filled zeros, e.g. 1 ns will be "000000001"
         String nanoAdjustmentPadded = ("000000000" + nanoAdjustment).substring(String.valueOf(nanoAdjustment).length());

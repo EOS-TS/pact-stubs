@@ -16,6 +16,7 @@
  */
 package de.eosts.pactstubs.loader;
 
+import au.com.dius.pact.core.support.expressions.ExpressionParser;
 import au.com.dius.pact.provider.junitsupport.loader.PactBrokerAuth;
 import au.com.dius.pact.provider.junitsupport.loader.PactBrokerLoader;
 
@@ -84,7 +85,8 @@ public class PactBrokerInteractionLoaderBuilder {
                 "false",
                 emptyList(),
                 "",
-                null));
-
+                null,
+                new ExpressionParser()
+        ));
     }
 }
