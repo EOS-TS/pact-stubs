@@ -18,6 +18,7 @@ package de.eosts.pactstubs.wiremock.request;
 
 import au.com.dius.pact.consumer.ConsumerPactBuilder;
 import au.com.dius.pact.core.model.Request;
+import au.com.dius.pact.core.model.RequestResponseInteraction;
 import de.eosts.pactstubs.compare.RequestComparisonResult;
 import de.eosts.pactstubs.spec.SpecificRequestSpec;
 import org.junit.Assert;
@@ -35,11 +36,12 @@ public class Pact2WireMockRequestConverterTest {
 
     @Test
     public void shouldConvertMethod() {
-        Request pactRequest = ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
+        RequestResponseInteraction interaction = (RequestResponseInteraction) ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
                 .method("PUT")
                 .path("/segment/test")
                 .willRespondWith()
-                .toPact().getInteractions().get(0).getRequest();
+                .toPact().getInteractions().get(0);
+        Request pactRequest = interaction.getRequest();
 
         Assert.assertEquals("PUT", new Pact2WireMockRequestConverter(pactRequest).convert().getRequestPattern().getMethod().getName());
 
@@ -47,33 +49,36 @@ public class Pact2WireMockRequestConverterTest {
 
     @Test
     public void shouldConvertUrlPath() {
-        Request pactRequest = ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
+        RequestResponseInteraction interaction = (RequestResponseInteraction) ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
                 .method("GET")
                 .path("/segment/test")
                 .willRespondWith()
-                .toPact().getInteractions().get(0).getRequest();
+                .toPact().getInteractions().get(0);
+        Request pactRequest = interaction.getRequest();
 
         Assert.assertEquals("/segment/test", new Pact2WireMockRequestConverter(pactRequest).convert().getRequestPattern().getUrlPath());
     }
 
     @Test
     public void shouldConvertUrlPathPattern() {
-        Request pactRequest = ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
+        RequestResponseInteraction interaction = (RequestResponseInteraction) ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
                 .method("GET")
                 .matchPath("/segment/.*")
                 .willRespondWith()
-                .toPact().getInteractions().get(0).getRequest();
+                .toPact().getInteractions().get(0);
+        Request pactRequest = interaction.getRequest();
 
         Assert.assertEquals("/segment/.*", new Pact2WireMockRequestConverter(pactRequest).convert().getRequestPattern().getUrlPathPattern());
     }
 
     @Test
     public void shouldConvertSpecificUrlPathNoMismatch() {
-        Request pactRequest = ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
+        RequestResponseInteraction interaction = (RequestResponseInteraction) ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
                 .method("GET")
                 .matchPath("/segment/.*")
                 .willRespondWith()
-                .toPact().getInteractions().get(0).getRequest();
+                .toPact().getInteractions().get(0);
+        Request pactRequest = interaction.getRequest();
 
         RequestComparisonResult comparisonResult = new Pact2WireMockRequestConverter(pactRequest, SpecificRequestSpec.builder().urlPath("/segment/").build()).convert();
         assertEquals("/segment/", comparisonResult.getRequestPattern().getUrlPath());
@@ -82,11 +87,12 @@ public class Pact2WireMockRequestConverterTest {
 
     @Test
     public void shouldConvertSpecificUrlPathWithMismatches() {
-        Request pactRequest = ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
+        RequestResponseInteraction interaction = (RequestResponseInteraction) ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
                 .method("GET")
                 .matchPath("/segment/.*")
                 .willRespondWith()
-                .toPact().getInteractions().get(0).getRequest();
+                .toPact().getInteractions().get(0);
+        Request pactRequest = interaction.getRequest();
         RequestComparisonResult comparisonResult = new Pact2WireMockRequestConverter(pactRequest, SpecificRequestSpec.builder().urlPath("/other/").build()).convert();
 
         assertEquals("/other/", comparisonResult.getRequestPattern().getUrlPath());
@@ -98,12 +104,13 @@ public class Pact2WireMockRequestConverterTest {
 
     @Test
     public void shouldConvertQueryParams() {
-        Request pactRequest = ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
+        RequestResponseInteraction interaction = (RequestResponseInteraction) ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
                 .method("GET")
                 .path("/segment/")
                 .query("a=b&c=d")
                 .willRespondWith()
-                .toPact().getInteractions().get(0).getRequest();
+                .toPact().getInteractions().get(0);
+        Request pactRequest = interaction.getRequest();
 
         Assert.assertEquals("b", new Pact2WireMockRequestConverter(pactRequest).convert().getRequestPattern().getQueryParameters().get("a").getExpected());
         Assert.assertEquals("d", new Pact2WireMockRequestConverter(pactRequest).convert().getRequestPattern().getQueryParameters().get("c").getExpected());
@@ -111,13 +118,14 @@ public class Pact2WireMockRequestConverterTest {
 
     @Test
     public void shouldConvertQueryParamPattern() {
-        Request pactRequest = ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
+        RequestResponseInteraction interaction = (RequestResponseInteraction) ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
                 .method("GET")
                 .path("/segment/")
                 .matchQuery("a", ".*")
                 .matchQuery("c", ".*")
                 .willRespondWith()
-                .toPact().getInteractions().get(0).getRequest();
+                .toPact().getInteractions().get(0);
+        Request pactRequest = interaction.getRequest();
 
         RequestComparisonResult comparisonResult = new Pact2WireMockRequestConverter(pactRequest).convert();
 
@@ -127,12 +135,13 @@ public class Pact2WireMockRequestConverterTest {
 
     @Test
     public void shouldConvertSpecificQueryParamPatternNoMismatch() {
-        Request pactRequest = ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
+        RequestResponseInteraction interaction = (RequestResponseInteraction) ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
                 .method("GET")
                 .path("/segment/")
                 .matchQuery("a", ".*")
                 .willRespondWith()
-                .toPact().getInteractions().get(0).getRequest();
+                .toPact().getInteractions().get(0);
+        Request pactRequest = interaction.getRequest();
 
         HashMap<String, String> specificQueryParams = new HashMap<>();
         specificQueryParams.put("a", "b");
@@ -144,14 +153,15 @@ public class Pact2WireMockRequestConverterTest {
 
     @Test
     public void shouldConvertSpecificQueryParamPatternMismatches() {
-        Request pactRequest = ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
+        RequestResponseInteraction interaction = (RequestResponseInteraction) ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
                 .method("GET")
                 .path("/segment/")
                 .query("a=11&b=12&c=any&d=match")
                 .matchQuery("a", "1.*")
                 .matchQuery("c", ".*")
                 .willRespondWith()
-                .toPact().getInteractions().get(0).getRequest();
+                .toPact().getInteractions().get(0);
+        Request pactRequest = interaction.getRequest();
 
         HashMap<String, String> specificQueryParams = new HashMap<>();
         specificQueryParams.put("a", "mismatch");
@@ -169,19 +179,18 @@ public class Pact2WireMockRequestConverterTest {
     }
 
     @Test
-    public void shouldConvertSpecificBodyPattern(){
-        Request pactRequest = ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
+    public void shouldConvertSpecificBodyPattern() {
+        RequestResponseInteraction interaction = (RequestResponseInteraction) ConsumerPactBuilder.consumer("consumer").hasPactWith("provider").uponReceiving("description")
                 .method("POST")
                 .path("/segment/")
                 .body("{}")
                 .willRespondWith()
-                .toPact().getInteractions().get(0).getRequest();
+                .toPact().getInteractions().get(0);
+        Request pactRequest = interaction.getRequest();
 
         RequestComparisonResult convert = new Pact2WireMockRequestConverter(pactRequest, SpecificRequestSpec.builder().jsonBody("{\"key\": \"value\"}").build()).convert();
 
         assertEquals("{\"key\": \"value\"}", convert.getRequestPattern().getBodyPatterns().get(0).getValue());
-
-
     }
 
 }

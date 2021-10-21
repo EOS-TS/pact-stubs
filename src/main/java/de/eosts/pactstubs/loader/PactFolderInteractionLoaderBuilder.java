@@ -33,6 +33,6 @@ public class PactFolderInteractionLoaderBuilder {
     }
 
     public PactInteractionLoader build() {
-        return new PactInteractionLoader(new PactFolderLoader<>(path));
+        return new PactInteractionLoader(new PactFolderLoader(path));
     }
 }
