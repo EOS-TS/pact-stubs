@@ -12,8 +12,8 @@ version = '3.0.0-SNAPSHOT'
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 ext {
-    pactVersion = '4.2.14'
-    wireMockVersion = '2.31.0'
+    pactVersion = '4.2.20'
+    wireMockVersion = '2.32.0'
 }
 
 dependencies {
@@ -21,15 +21,15 @@ dependencies {
     api "au.com.dius.pact:provider:${pactVersion}"
     api "au.com.dius.pact.core:model:${pactVersion}"
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31") {
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.0") {
         because("required to instantiate PactBrokerLoader")
     }
-    implementation('org.json:json:20160212') {
+    implementation('org.json:json:20211205') {
         because("relying only on the transitive dependency of au.com.dius.pact:consumer results in cannot access JSONObject")
     }
 
     testImplementation "au.com.dius.pact:consumer:${pactVersion}"
-    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0"
+    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1"
     testImplementation 'junit:junit:4.13.2'
 }
 
@@ -38,6 +38,7 @@ repositories {
         mavenLocal()
         mavenCentral()
     }
+    mavenCentral()
 }
 
 java {
