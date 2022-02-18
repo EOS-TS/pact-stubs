@@ -41,9 +41,9 @@ Add to your java project as dependency (maven):
 PactStubs itself requires at least (and will include transitively):
 
  ```
-     com.github.tomakehurst:wiremock-jre8:2.31.0    
-     au.com.dius:pact-jvm-provider-junit:4.2.14
-     au.com.dius:pact-jvm-consumer-junit:4.2.14
+     com.github.tomakehurst:wiremock-jre8:2.32.0    
+     au.com.dius:pact-jvm-provider-junit:4.2.20
+     au.com.dius:pact-jvm-consumer-junit:4.2.20
  ```
 
 ### Usage
