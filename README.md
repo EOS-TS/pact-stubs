@@ -23,7 +23,7 @@ from folder or urls.
 Supported Pact-jvm versions:
 
 | pact-stubs version | pact-jvm version | Pact Spec version |
-| ------------------ | ---------------- | ----------------- |
+|--------------------|------------------|-------------------|
 | 3.x.x              | 4.2.14           | V3                |
 | 2.x.x              | 4.1.28           | V3                |
 | 1.x.x              | 4.0.10           | V3                |
@@ -93,16 +93,15 @@ class Example {
 Currently setting values and renaming keys via JsonPath is supported. These are wrapped
 by [JsonPathCommands](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathCommand.java).
 
-| JsonPathCommand  | Description  | Comments  |
-|---|---|---|
-| [JsonPathSetCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathSetCommand.java)  | overwrite existing property's value |  (* throws com.jayway.jsonpath.PathNotFoundException if property doesn't exist) |
-| [JsonPathPutCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathPutCommand.java)  | add new property  | (* this is only useful for *
-optional* fields, which are not represented in pact contracts. Usage might indicate a missing pact for the optional field or provider interface is too generic)  | 
-| [JsonPathRenameKeyCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathRenameKeyCommand.java)  | rename existing key  | (* throws com.jayway.jsonpath.PathNotFoundException if property doesn't exist)  |
-| [JsonPathAddToArrayCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathAddToArrayCommand.java)  | add object to existing array  | (* throws com.jayway.jsonpath.PathNotFoundException if property doesn't exist)  |
-| [JsonPathDeleteCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathDeleteCommand.java)  | delete key or element in array  | (* throws com.jayway.jsonpath.PathNotFoundException if property doesn't exist)  |
-| [JsonPathMapCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathMapCommand.java)  | set a value based on current value and given map function  | (* throws com.jayway.jsonpath.PathNotFoundException if property doesn't exist)  |
-|   |   |   |
+| JsonPathCommand                                                                                       | Description                                               | Comments                                                                                                                                                                                    |
+|-------------------------------------------------------------------------------------------------------|-----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [JsonPathSetCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathSetCommand.java)               | overwrite existing property's value                       | (* throws com.jayway.jsonpath.PathNotFoundException if property doesn't exist)                                                                                                              |
+| [JsonPathPutCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathPutCommand.java)               | add new property                                          | (* this is only useful for *optional* fields, which are not represented in pact contracts. Usage might indicate a missing pact for the optional field or provider interface is too generic) | 
+| [JsonPathRenameKeyCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathRenameKeyCommand.java)   | rename existing key                                       | (* throws com.jayway.jsonpath.PathNotFoundException if property doesn't exist)                                                                                                              |
+| [JsonPathAddToArrayCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathAddToArrayCommand.java) | add object to existing array                              | (* throws com.jayway.jsonpath.PathNotFoundException if property doesn't exist)                                                                                                              |
+| [JsonPathDeleteCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathDeleteCommand.java)         | delete key or element in array                            | (* throws com.jayway.jsonpath.PathNotFoundException if property doesn't exist)                                                                                                              |
+| [JsonPathMapCommand](src/main/java/de/eosts/pactstubs/jsonpath/JsonPathMapCommand.java)               | set a value based on current value and given map function | (* throws com.jayway.jsonpath.PathNotFoundException if property doesn't exist)                                                                                                              |
+|                                                                                                       |                                                           |                                                                                                                                                                                             |
 
 Since manipulation of responses/message could violate the respective pact,
 a [ResponseComparisonResultException](src/main/java/de/eosts/pactstubs/exception/ResponseComparisonResultException.java)
