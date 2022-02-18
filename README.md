@@ -24,7 +24,7 @@ Supported Pact-jvm versions:
 
 | pact-stubs version | pact-jvm version | Pact Spec version |
 |--------------------|------------------|-------------------|
-| 3.x.x              | 4.2.14           | V3                |
+| 3.x.x              | 4.2.20           | V3                |
 | 2.x.x              | 4.1.28           | V3                |
 | 1.x.x              | 4.0.10           | V3                |
 
