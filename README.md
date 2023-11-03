@@ -24,7 +24,8 @@ Supported Pact-jvm versions:
 
 | pact-stubs version | pact-jvm version | Pact Spec version |
 |--------------------|------------------|-------------------|
-| 3.x.x              | 4.2.20           | V3                |
+| 3.0.1              | 4.2.21           | V3                |
+| 3.0.0              | 4.2.20           | V3                |
 | 2.x.x              | 4.1.28           | V3                |
 | 1.x.x              | 4.0.10           | V3                |
 
@@ -41,9 +42,9 @@ Add to your java project as dependency (maven):
 PactStubs itself requires at least (and will include transitively):
 
  ```
-     com.github.tomakehurst:wiremock-jre8:2.32.0    
-     au.com.dius:pact-jvm-provider-junit:4.2.20
-     au.com.dius:pact-jvm-consumer-junit:4.2.20
+     com.github.tomakehurst:wiremock-jre8:2.35.1    
+     au.com.dius:pact-jvm-provider-junit:4.2.21
+     au.com.dius:pact-jvm-consumer-junit:4.2.21
  ```
 
 ### Usage

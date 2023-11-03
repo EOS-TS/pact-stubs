@@ -12,8 +12,8 @@ version = '3.0.1-SNAPSHOT'
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 ext {
-    pactVersion = '4.2.20'
-    wireMockVersion = '2.32.0'
+    pactVersion = '4.2.21'
+    wireMockVersion = '2.35.1'
 }
 
 dependencies {
